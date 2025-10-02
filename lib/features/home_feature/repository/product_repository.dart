@@ -1,8 +1,9 @@
 import 'package:ecommerce_app/features/home_feature/model/product_model.dart';
 
 class ProductRepository {
-  static  List<ProductModel> getProducts() {
-    return [
+  // Changed from a method (getProducts()) to a static list (getProducts)
+  // so we can access the products directly without calling a function.
+  static List<ProductModel> getProducts = [
       ProductModel(
         id: "1",
         name: "Black Backpack",
@@ -104,5 +105,5 @@ class ProductRepository {
             "Elegant white midi dress with blue floral prints, perfect for summer outings and special occasions.",
       ),
     ];
-  }
+  
 }
