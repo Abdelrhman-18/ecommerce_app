@@ -1,11 +1,18 @@
-import 'package:ecommerce_app/config/color_manager.dart';
+// Flutter core
+import 'package:flutter/material.dart';
+
+// Third-party packages
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+// Project imports - Config
+import 'package:ecommerce_app/config/app_colors.dart';
+import 'package:ecommerce_app/config/app_images.dart';
+
+// Project imports - Features / Screens
+import 'package:ecommerce_app/features/home_feature/screens/home_screen.dart';
 import 'package:ecommerce_app/features/cart_feature/screens/cart_screen.dart';
 import 'package:ecommerce_app/features/favorite_feature/screens/favorite_screen.dart';
-import 'package:ecommerce_app/features/home_feature/screens/home_screen.dart';
 import 'package:ecommerce_app/features/profile_feature/screens/profile_screen.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({super.key});
@@ -15,63 +22,81 @@ class BottomNav extends StatefulWidget {
 }
 
 class _BottomNavState extends State<BottomNav> {
-  // Initialize the controller directly
-  final PersistentTabController controller = PersistentTabController(
-    initialIndex: 0,
-  );
 
-  // Define your list of screens
+   int selectIndex =0;
+
   final List<Widget> pages = [
-    HomeScreen(),
-    CartScreen(),
-    FavoriteScreen(),
-    ProfileScreen(),
+    const HomeScreen(),
+     CartScreen(),
+    const FavoriteScreen(),
+    const ProfileScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return PersistentTabView(
-      controller: controller,
+    return Scaffold(
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+          canvasColor: AppColors.whiteColor,
+        ),
+        child: BottomNavigationBar(
+          selectedItemColor: AppColors.primaryColor,
+          unselectedItemColor: AppColors.grey100,
+          currentIndex: selectIndex,
+          onTap: (index){
+            setState(() {
+              selectIndex =index;
+            });
 
-      tabs: [
-        PersistentTabConfig(
-          screen: pages[0],
-          item: ItemConfig(
-            icon: Icon(EvaIcons.home),
-            title: "Home",
-            activeForegroundColor: ColorManager.primaryColor,
-          ),
-        ),
-        PersistentTabConfig(
-          screen: pages[1],
-          item: ItemConfig(
-            icon: Icon(Icons.shopping_cart_outlined),
-            title: "My Cart",
-            activeForegroundColor: ColorManager.primaryColor,
-          ),
-        ),
-        PersistentTabConfig(
-          screen: pages[2],
-          item: ItemConfig(
-            icon: Icon(Icons.favorite_border),
-            title: "Favorite",
-            activeForegroundColor: ColorManager.primaryColor,
-          ),
-        ),
-        PersistentTabConfig(
-          screen: pages[3],
-          item: ItemConfig(
-            icon: Icon(
-              EvaIcons.personOutline,
-
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: Image.asset(
+                AppImage.homeIcon,
+                height: 30.h,
+                width: 30.w,
+                color: selectIndex==0?AppColors.primaryColor:AppColors.greyColor,
+              ),
+              label: "Home",
             ),
-            title: "My Profile",
-            activeForegroundColor: ColorManager.primaryColor,
-          ),
+            BottomNavigationBarItem(
+              icon: SizedBox(
+                height: 30.h,
+                width: 30.w,
+
+                child: Image.asset(
+                  AppImage.deliveryIcon,
+                  color: selectIndex==1?AppColors.primaryColor:AppColors.greyColor,
+
+                ),
+              ),
+              label: "Cart",
+            ),
+            BottomNavigationBarItem(
+              icon: Image.asset(
+                AppImage.favoriteIcon,
+                height: 30.h,
+                width: 30.w,
+                color: selectIndex==2?AppColors.primaryColor:AppColors.greyColor,
+
+              ),
+              label: "Favorite",
+            ),
+            BottomNavigationBarItem(
+              icon: Image.asset(
+               AppImage.userIcon,
+                height: 30.h,
+                width: 30.w,
+                color: selectIndex==3?AppColors.primaryColor:AppColors.greyColor,
+
+              ),
+              label: "Profile",
+            ),
+          ],
         ),
-      ],
-      navBarBuilder: (navBarConfig) =>
-          Style1BottomNavBar(navBarConfig: navBarConfig),
+      ),
+      body: pages[selectIndex],
     );
+
   }
 }

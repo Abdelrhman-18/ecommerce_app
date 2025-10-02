@@ -1,37 +1,44 @@
-import 'package:ecommerce_app/config/color_manager.dart';
-import 'package:ecommerce_app/config/text_style.dart';
-import 'package:ecommerce_app/features/home_feature/model/product_model.dart';
+// Flutter core
 import 'package:flutter/material.dart';
+
+// Third-party packages
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+// Project imports - Config
+import 'package:ecommerce_app/config/app_colors.dart';
+import 'package:ecommerce_app/config/text_style.dart';
+
+// Project imports - Features
+import 'package:ecommerce_app/features/home_feature/model/product_model.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductModel product;
   final VoidCallback onFavoriteToggle;
 
   const ProductCard({
-    Key? key,
+    super.key,
     required this.product,
     required this.onFavoriteToggle,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: ColorManager.whiteColor,
+      color: AppColors.whiteColor,
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Image with Favorite Icon
+          //TODO: Image with Favorite Icon
           Stack(
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(15.r)),
+                borderRadius: BorderRadius.all(Radius.circular(10.r)),
                 child: AspectRatio(
                   aspectRatio: 1,
                   child: Container(
-                    color: ColorManager.lightGreyColor,
+                    color: AppColors.lightGreyColor,
                     child: Image.asset(product.imageUrl, fit: BoxFit.contain),
                   ),
                 ),
@@ -45,7 +52,7 @@ class ProductCard extends StatelessWidget {
                     height: 30.r,
                     width: 30.r,
                     decoration: BoxDecoration(
-                      color: ColorManager.blackOpacityColor,
+                      color: AppColors.blackOpacityColor,
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
@@ -53,8 +60,8 @@ class ProductCard extends StatelessWidget {
                           ? Icons.favorite
                           : Icons.favorite_border,
                       color: product.isFavorite
-                          ? ColorManager.redColor
-                          : ColorManager.whiteColor,
+                          ? AppColors.redColor
+                          : AppColors.whiteColor,
                       size: 18.sp,
                     ),
                   ),

@@ -1,9 +1,14 @@
-import 'package:ecommerce_app/config/color_manager.dart';
-import 'package:ecommerce_app/config/image_manager.dart';
-import 'package:ecommerce_app/config/text_style.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+// Flutter core
 import 'package:flutter/material.dart';
+
+// Third-party packages
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+// Project imports - Config
+import 'package:ecommerce_app/config/app_colors.dart';
+import 'package:ecommerce_app/config/app_images.dart';
+import 'package:ecommerce_app/config/text_style.dart';
 
 class CustomAppbar extends StatelessWidget {
   const CustomAppbar({super.key});
@@ -11,15 +16,15 @@ class CustomAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.all(8.0.w),
+      padding: EdgeInsets.all(8.0.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
               CircleAvatar(
-                radius: 30.r,
-                backgroundImage: AssetImage(ImageManager.profileImage),
+                radius: 25.r,
+                backgroundImage: AssetImage(AppImage.profileImage),
               ),
               SizedBox(width: 10.w),
               Column(
@@ -42,10 +47,11 @@ class CustomAppbar extends StatelessWidget {
                 children: [
                   Icon(EvaIcons.bellOutline),
                   Positioned(
-                    left: 12.w,
+                    left: 11.w,
+                    top: 3.w,
                     child: CircleAvatar(
-                      backgroundColor: ColorManager.redColor,
-                      radius: 5.r,
+                      backgroundColor: AppColors.redColor,
+                      radius: 3.r,
                     ),
                   ),
                 ],

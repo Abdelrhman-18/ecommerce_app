@@ -8,8 +8,9 @@ final class HomeLoading extends HomeState {}
 
 final class HomeSuccess extends HomeState {
   final List<ProductModel> products;
+final List<ProductModel> favorites;
 
-  HomeSuccess({required this.products});
+  HomeSuccess({required this.products,required this.favorites});
 }
 
 final class HomeError extends HomeState {
@@ -17,3 +18,4 @@ final class HomeError extends HomeState {
 
   HomeError({required this.errorMessage});
 }
+

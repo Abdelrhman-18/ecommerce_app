@@ -1,8 +1,16 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:ecommerce_app/config/color_manager.dart';
-import 'package:ecommerce_app/features/home_feature/model/carousel_model.dart';
+// Flutter core
 import 'package:flutter/material.dart';
+
+// Third-party packages
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+// Project imports - Config
+import 'package:ecommerce_app/config/app_colors.dart';
+import 'package:ecommerce_app/config/app_images.dart';
+
+// Project imports - Features
+import 'package:ecommerce_app/features/home_feature/model/carousel_model.dart';
 
 class CustomCarousel extends StatefulWidget {
   const CustomCarousel({super.key});
@@ -12,36 +20,38 @@ class CustomCarousel extends StatefulWidget {
 }
 
 class _CustomCarouselState extends State<CustomCarousel> {
+  //TODO:Image List
   final List<CarouselModel> carouselList = [
-    CarouselModel(imageUrl: "assets/images/slider/slider_1.jpg"),
-    CarouselModel(imageUrl: "assets/images/slider/slider_2.jpg"),
-    CarouselModel(imageUrl: "assets/images/slider/slider_3.jpg"),
-    CarouselModel(imageUrl: "assets/images/slider/slider_4.jpg"),
+    CarouselModel(imageUrl: AppImage.slider1),
+    CarouselModel(imageUrl: AppImage.slider2),
+    CarouselModel(imageUrl: AppImage.slider3),
+
   ];
 
   int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    //TODO: Carousel
     return SizedBox(
-      height: 210.h,
+      height: 180.h,
       child: Column(
         children: [
           CarouselSlider(
             items: carouselList
                 .map(
                   (item) => ClipRRect(
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(10.r),
                 child: Image.asset(
                   item.imageUrl,
                   fit: BoxFit.cover,
-                  width: 320.w,
+                  width: 340.w,
                 ),
               ),
             )
                 .toList(),
             options: CarouselOptions(
-              height: 180.h,
+              height: 150.h,
               autoPlay: true,
               enlargeCenterPage: true,
               onPageChanged: (index, reason) {
@@ -52,18 +62,19 @@ class _CustomCarouselState extends State<CustomCarousel> {
             ),
           ),
           SizedBox(height: 16.h),
+          //TODO: Dots Indicator
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(carouselList.length, (index) {
               return Container(
-                width: 8.w,
-                height: 8.h,
+                width: 7.w,
+                height: 7.h,
                 margin:  EdgeInsets.symmetric(horizontal: 4.h),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: _currentIndex == index
-                      ? ColorManager.primaryColor
-                      : ColorManager.greyColor,
+                      ? AppColors.primaryColor
+                      : AppColors.lightGreyColor,
                 ),
               );
             }),
