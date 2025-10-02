@@ -8,7 +8,8 @@ part 'product_details_state.dart';
 class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   ProductDetailsCubit() : super(ProductDetailsInitial());
 
-  final products = ProductRepository.getProducts();
+  // final products = ProductRepository.getProducts();
+  final products = ProductRepository.getProducts;
   int quantity = 1;
   ProductSize? size;
 

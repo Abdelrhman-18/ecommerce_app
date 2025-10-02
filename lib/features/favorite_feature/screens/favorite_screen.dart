@@ -5,12 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
+import '../../home_feature/model/product_model.dart';
+
 class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     return BlocProvider(
       create: (_) => HomeCubit()..getHomeData(),
       child: Scaffold(
@@ -79,9 +80,7 @@ class FavoriteScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: AppColors.whiteColor,
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: AppColors.lightGreyColor,
-                        ),
+                        border: Border.all(color: AppColors.lightGreyColor),
                       ),
                       child: Text(
                         categories[index].name,
@@ -97,8 +96,11 @@ class FavoriteScreen extends StatelessWidget {
               BlocBuilder<HomeCubit, HomeState>(
                 builder: (context, state) {
                   if (state is HomeSuccess) {
-                    final favorites = state.favorites;
-
+                    // final favorites = state.favorites;
+                    // after deleting the [getFavoriteProducts] list from the HomeCubit, i will get the favorite products from this list
+                    final List<ProductModel> favorites = state.products
+                        .where((product) => product.isFavorite)
+                        .toList();
                     if (favorites.isEmpty) {
                       return const Center(
                         child: Padding(
@@ -124,7 +126,10 @@ class FavoriteScreen extends StatelessWidget {
                           final product = favorites[index];
                           return ListTile(
                             title: Text(product.name),
-                            trailing: const Icon(Icons.favorite, color: Colors.red),
+                            trailing: const Icon(
+                              Icons.favorite,
+                              color: Colors.red,
+                            ),
                           );
                         },
                       ),
@@ -133,7 +138,6 @@ class FavoriteScreen extends StatelessWidget {
                   return const Center(child: CircularProgressIndicator());
                 },
               ),
-
             ],
           ),
         ),
